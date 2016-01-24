@@ -30,7 +30,7 @@ public class Principal {
 			System.out.println("Nombre: ");
 			String n = sc.nextLine();
 			System.out.println("Edad: ");
-			String edad = sc.nextLine();
+			int edad = Integer.parseInt(sc.nextLine());
 			System.out.println("DNI: ");
 			String dni = sc.nextLine();
 			
@@ -59,9 +59,9 @@ public class Principal {
 			break;
 		case "5":
 			System.out.println("Edad minima: ");
-			String edadMin = sc.nextLine();
+			int edadMin = Integer.parseInt(sc.nextLine());
 			System.out.println("Edad maxima: ");
-			String edadMax = sc.nextLine();
+			int edadMax = Integer.parseInt(sc.nextLine());
 			
 			gp.recuperarPersonaPorEdad(edadMin, edadMax);
 			break;

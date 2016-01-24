@@ -2,14 +2,14 @@
 public class Persona {
 
 	String nombre;
-	String edad;
+	int edad;
 	String dni;
 	
 	public Persona(){
 		
 	}
 	
-	public Persona(String nom, String age, String dni){
+	public Persona(String nom, int age, String dni){
 		this.nombre = nom;
 		this.edad = age;
 		this.dni = dni;
@@ -23,11 +23,11 @@ public class Persona {
 		this.nombre = nombre;
 	}
 
-	public String getEdad() {
+	public int getEdad() {
 		return edad;
 	}
 
-	public void setEdad(String edad) {
+	public void setEdad(int edad) {
 		this.edad = edad;
 	}
 

@@ -5,6 +5,7 @@ import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Constraint;
+import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 
 
@@ -86,7 +87,7 @@ public class GestionPersistencia {
 		return listaDni;
 	}
 	
-	public List<Persona> recuperarPersonaPorEdad(String menor, String mayor){
+	public List<Persona> recuperarPersonaPorEdad(int menor, int mayor){
 		List<Persona> listaEdad = new ArrayList<Persona>();
 		
 		try{
@@ -110,23 +111,21 @@ public class GestionPersistencia {
 	public List<Persona> recuperarPersonaAvanzada(){
 		List<Persona> listaAvanzada = new ArrayList<Persona>();
 		int edad = 30;
-		int dni = 20;
+		String dni = "20";
 		String letraF = "o";
 		
 		try{
-			Query q = bbdd.query();
-			q.constrain(Persona.class);
-			Constraint c1 = q.descend("edad").constrain(edad).greater();
-			Constraint c2 = q.descend("dni").constrain(dni).startsWith(true);
-			Constraint c3 = q.descend("nombre").constrain(letraF).endsWith(true);
+			ObjectSet<Persona> set = bbdd.query(new Predicate<Persona>(){
+				public boolean match(Persona p){
+					return p.getNombre().endsWith(letraF) || p.getDni().startsWith(dni) || p.getEdad() > edad;
+				}
+			});
 			
-			c1.or(c2).or(c3);
-			
-			ObjectSet<Persona> res = q.execute();
-			for(Persona p: res){
+			for(Persona p: set){
 				p.print();
 				listaAvanzada.add(p);
 			}
+			
 		}finally{
 			bbdd.close();
 		}
